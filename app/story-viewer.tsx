@@ -39,7 +39,7 @@ export default function StoryViewer() {
     try {
       setLoading(true);
 
-      const response = await fetch("http://192.168.1.4:5000/api/generate-story", {
+      const response = await fetch("https://storygenie-backend.onrender.com/api/generate-story", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
