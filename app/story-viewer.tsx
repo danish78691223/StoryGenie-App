@@ -42,9 +42,10 @@ export default function StoryViewer() {
     try {
       setLoading(true);
 
-      if (fromSaved === "true" && storyData) {
-        const saved = JSON.parse(storyData);
-        setStory(saved);
+      if (fromSaved === "true") {
+        const savedData = await AsyncStorage.getItem("currentStory");
+        if (!savedData) throw new Error("Saved story could not be loaded.");
+        setStory(JSON.parse(savedData));
         return;
       }
 
@@ -410,7 +411,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: "#EEE CFF".replace(" ", ""),
+    backgroundColor: "#EEECFF",
     alignItems: "center",
     justifyContent: "center",
     marginRight: 9,
