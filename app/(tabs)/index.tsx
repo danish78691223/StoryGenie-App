@@ -1,8 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   return (
     <LinearGradient
       colors={["#7F7FD5", "#86A8E7", "#91EAE4"]}
@@ -11,17 +13,19 @@ export default function HomeScreen() {
       <Text style={styles.title}>StoryGenie</Text>
       <Text style={styles.subtitle}>Create magical AI stories instantly</Text>
 
-      <Link href="/create-story" asChild>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>✨ Create New Story</Text>
-        </TouchableOpacity>
-      </Link>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push("/create-story")}
+      >
+        <Text style={styles.buttonText}>✨ Create New Story</Text>
+      </TouchableOpacity>
 
-      <Link href="/saved-stories" asChild>
-        <TouchableOpacity style={[styles.button, styles.secondaryButton]}>
-          <Text style={styles.secondaryText}>📚 Saved Stories</Text>
-        </TouchableOpacity>
-      </Link>
+      <TouchableOpacity
+        style={styles.secondaryButton}
+        onPress={() => router.push("/saved-stories")}
+      >
+        <Text style={styles.secondaryText}>📚 Saved Stories</Text>
+      </TouchableOpacity>
     </LinearGradient>
   );
 }
@@ -54,13 +58,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     elevation: 3,
   },
+  secondaryButton: {
+    width: "80%",
+    backgroundColor: "rgba(255,255,255,0.7)",
+    paddingVertical: 15,
+    borderRadius: 25,
+    marginBottom: 15,
+    alignItems: "center",
+    elevation: 3,
+  },
   buttonText: {
     color: "#333",
     fontSize: 18,
     fontWeight: "600",
-  },
-  secondaryButton: {
-    backgroundColor: "rgba(255,255,255,0.7)",
   },
   secondaryText: {
     color: "#333",
