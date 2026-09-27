@@ -73,7 +73,8 @@ export default function SavedStories() {
         <TouchableOpacity
           key={item.id}
           style={styles.card}
-          onPress={() =>
+          onPress={async () => {
+            await AsyncStorage.setItem("currentStory", JSON.stringify(item));
             router.push({
               pathname: "/story-viewer",
               params: {
@@ -81,15 +82,14 @@ export default function SavedStories() {
                 storyType: item.storyType,
                 ageGroup: item.ageGroup,
                 language: item.language,
-                storyData: JSON.stringify(item),
                 fromSaved: "true",
               },
-            })
-          }
+            });
+          }}
         >
           {/* Thumbnail */}
           <Image
-            source={{ uri: item.images[0] }}
+            source={{ uri: item.paragraphs?.[0]?.image || item.images?.[0] }}
             style={styles.thumbnail}
           />
 
